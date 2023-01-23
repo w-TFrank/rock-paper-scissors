@@ -7,15 +7,19 @@
     <script type="text/javascript" src="rock-paper-scissors.js" defer></script>
 </head>
 <body>
-    <h1>Best of 5</h1>
-    <h2 style="padding-top: 50px">Round 1</h2>
+    <h1>Rock paper scissors</h1>
+    <h2>Best of 5</h2>
+    <h2 id="round-counter" style="padding-top: 50px">Round 1</h2>
     <h3>Choose:</h3>
     <div class="buttons">
         <button id="rock">Rock</button>
         <button id="paper">Paper</button>
         <button id="scissors">Scissors</button>
     </div>
-    <div id="round"></div>
+    <div id="choices-counters" class="choices-counters">
+        <div id="choices"></div>
+        <div id="counters"></div>
+    </div>
 </body>
 </head>
 </html>

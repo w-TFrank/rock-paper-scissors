@@ -4,25 +4,32 @@ let round = 1;
 let winCounter = 0;
 let lossCounter = 0;
 let tieCounter= 0;
-const roundDiv = document.querySelector('#round');
+const body = document.querySelector('body');
+const choices = document.querySelector('#choices');
+const counters = document.querySelector('#counters');
+let roundCounter = document.querySelector('#round-counter');
 let playerSelectionHeading = document.createElement('h4');
 let computerSelectionHeading = document.createElement('h4');
-roundDiv.appendChild(playerSelectionHeading);
-roundDiv.appendChild(computerSelectionHeading);
+let numberOfWins = document.createElement('h3');
+let numberOfLosses = document.createElement('h3');
+let numberOfTies = document.createElement ('h3');
+let gameOver = document.createElement ('h1');
+choices.appendChild(playerSelectionHeading);
+choices.appendChild(computerSelectionHeading);
+counters.appendChild(numberOfWins);
+counters.appendChild(numberOfLosses);
+counters.appendChild(numberOfTies);
+body.appendChild(gameOver);
 
-function getComputerChoice() {
-    
+function getComputerChoice() {   
     min = Math.ceil(1);
     max = Math.floor(4);
     computerSelection = Math.floor(Math.random() * (max - min) + min);
-
     if (computerSelection === 1) {
         return "rock";
-    }
-    else if (computerSelection === 2) {
+    } else if (computerSelection === 2) {
         return "paper";
-    }
-    else {
+    } else {
         return "scissors";
     }
 }
@@ -30,6 +37,7 @@ function getComputerChoice() {
 function playRound(playerSelection, computerSelection) {
     playerSelectionHeading.textContent = ("You chose " + playerSelection + ".");
     computerSelectionHeading.textContent = ("The computer chose " + computerSelection + ".");
+    roundCounter.textContent = ("Round " + round);
 
     if (playerSelection === computerSelection) {
         tieCounter++;
@@ -65,28 +73,32 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-    console.log("rounds won: " + winCounter);
-    console.log("rounds lost: " + lossCounter);
-    console.log("rounds tied: " + tieCounter);
+    numberOfWins.textContent = ("Won: " + winCounter);
+    numberOfLosses.textContent = ("Lost: " + lossCounter);
+    numberOfTies.textContent = ("Tied " + tieCounter);
     
-    if ((round === 5) && (winCounter > lossCounter)) {
-        console.log("Congratulations! You won the game!");
-    }
-    else if ((round === 5) && (winCounter < lossCounter)) {
-        console.log("Oh no! You lost the game!");
-    }
-    else if ((round === 5) && (winCounter === lossCounter)){
-        console.log("You tied the game!");
-    }
-
-    if (round === 5) {
-        round = 0;
-        winCounter = 0;
-        lossCounter = 0;
-        tieCounter = 0;
+    if (winCounter === 3) {
+        gameOver.textContent = ("Congratulations! You won the game!");
+        body.appendChild(playAgain);
+        playAgain.textContent = "Play again";
+    } else if (lossCounter === 3) {
+        gameOver.textContent = ("Oh no! You lost the game!");
+        body.appendChild(playAgain);
+        playAgain.textContent = "Play again";
+    } else if ((round === 5) && (winCounter > lossCounter)) {
+        gameOver.textContent = ("Congratulations! You won the game!");
+        body.appendChild(playAgain);
+        playAgain.textContent = "Play again";
+    } else if ((round === 5) && (winCounter < lossCounter)) {
+        gameOver.textContent = ("Oh no! You lost the game!");
+        body.appendChild(playAgain);
+        playAgain.textContent = "Play again";
+    } else if ((round === 5) && (winCounter === lossCounter)){
+        gameOver.textContent = ("You tied the game!");
+        body.appendChild(playAgain);
+        playAgain.textContent = "Play again";
     }
 }
-
 let buttons = document.querySelectorAll('button');
     
 buttons.forEach(function (i) {
@@ -96,3 +108,20 @@ buttons.forEach(function (i) {
         round++;
     });
 });
+const playAgain = document.createElement('button');
+playAgain.addEventListener('click', reset);
+
+function reset() {
+    round = 1;
+    winCounter = 0;
+    lossCounter = 0;
+    tieCounter = 0;
+    gameOver.textContent = "";
+    playerSelectionHeading.textContent = "";
+    computerSelectionHeading.textContent = "";
+    numberOfWins.textContent = "";
+    numberOfLosses.textContent = "";
+    numberOfTies.textContent = "";
+    roundCounter.textContent = ("Round " + round);
+    playAgain.remove();
+}
