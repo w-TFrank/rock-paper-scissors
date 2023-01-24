@@ -79,28 +79,23 @@ function game() {
     
     if (winCounter === 3) {
         gameOver.textContent = ("Congratulations! You won the game!");
-        body.appendChild(playAgain);
-        playAgain.textContent = "Play again";
+        restart();
     } else if (lossCounter === 3) {
         gameOver.textContent = ("Oh no! You lost the game!");
-        body.appendChild(playAgain);
-        playAgain.textContent = "Play again";
+        restart();
     } else if ((round === 5) && (winCounter > lossCounter)) {
         gameOver.textContent = ("Congratulations! You won the game!");
-        body.appendChild(playAgain);
-        playAgain.textContent = "Play again";
+        restart();
     } else if ((round === 5) && (winCounter < lossCounter)) {
         gameOver.textContent = ("Oh no! You lost the game!");
-        body.appendChild(playAgain);
-        playAgain.textContent = "Play again";
+        restart();
     } else if ((round === 5) && (winCounter === lossCounter)){
         gameOver.textContent = ("You tied the game!");
-        body.appendChild(playAgain);
-        playAgain.textContent = "Play again";
+        restart();
     }
 }
-let buttons = document.querySelectorAll('button');
-    
+
+let buttons = document.querySelectorAll('button');   
 buttons.forEach(function (i) {
     i.addEventListener('click', function () {
         playRound(i.id, getComputerChoice());
@@ -108,8 +103,14 @@ buttons.forEach(function (i) {
         round++;
     });
 });
+
 const playAgain = document.createElement('button');
 playAgain.addEventListener('click', reset);
+
+function restart() {
+    body.appendChild(playAgain);
+    playAgain.textContent = "Play again";
+}
 
 function reset() {
     round = 1;
